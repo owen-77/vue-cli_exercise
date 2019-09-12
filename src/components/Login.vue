@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { loginApi } from '@/api'
 export default {
   data() {
     return {
@@ -64,7 +65,7 @@ export default {
       this.$message.closeAll()
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        const { data: res } = await this.$http.post('login', this.loginForm)
+        const { data: res } = await loginApi(this.loginForm)
         if (!res.data) return this.$message.error('用户名或密码错误！')
         this.$message.success('登陆成功！')
         window.sessionStorage.token = res.data.token
